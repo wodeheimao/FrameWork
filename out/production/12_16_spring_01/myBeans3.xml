@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--不同数据结构的注入-->
+    <!--array数组-->
+    <bean id="collectionBean" class="com.zelin.pojo.CollectionBean">
+        <property name="names">
+            <array>
+                <value>张三</value>
+                <value>李四</value>
+                <value>王五</value>
+            </array>
+        </property>
+        <!--list法-->
+        <property name="syudents">
+            <list>
+                <ref bean="student1"/>
+                <ref bean="student2"/>
+            </list>
+        </property>
+        <property name="maps">
+            <map>
+                <entry key="#{boook1.bid}" value-ref="boook1"/>
+                <entry key="#{boook2.bid}" value-ref="boook2"/>
+                <entry key="#{boook3.bid}" value-ref="boook3"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="student1" class="com.zelin.pojo.Student">
+        <property name="sid" value="1001"/>
+        <property name="sname" value="张三"/>
+        <property name="sex" value="男"/>
+        <property name="addr" value="上海"/>
+    </bean>
+
+    <!--使用构造方法-->
+    <bean id="student2" class="com.zelin.pojo.Student">
+        <constructor-arg index="0" value="1002"/>
+        <constructor-arg name="sname" value="李四"/>
+        <constructor-arg name="sex" value="女"/>
+        <constructor-arg name="addr" value="北京"/>
+    </bean>
+    <bean id="boook1" class="com.zelin.pojo.Book">
+        <property name="bid" value="1001"/>
+        <property name="bname" value="《三国》"/>
+    </bean>
+    <bean id="boook2" class="com.zelin.pojo.Book">
+        <property name="bid" value="1002"/>
+        <property name="bname" value="《西游》"/>
+    </bean>
+    <bean id="boook3" class="com.zelin.pojo.Book">
+        <property name="bid" value="1003"/>
+        <property name="bname" value="《红楼梦》"/>
+    </bean>
+
+
+    <!--map-->
+
+</beans>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        .table {
+            margin-top: 10px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+    <title>学生列表</title>
+    <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
+    <script src="bootstrap-3.3.7/js/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="page-header">
+        <h3>
+            <small>
+                学生列表信息
+            </small>
+        </h3>
+    </div>
+
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-md-10">
+                    学生列表
+                </div>
+                <div class="col-md-1">
+                    <a class="btn btn-default" onclick="toAdd()">新增</a>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="studentMes">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                            <span>&times;</span></button>
+                        <h4>学生信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form1" method="post" class="form-horizontal">
+                            <input type="hidden" id="sid" name="sid">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">学生姓名</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="sname" id="sname" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">学生年龄</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="age" id="age" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">学生性别</label>
+                                <div class="col-md-10">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="sex" value="男">男
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="sex" value="女">女
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">学生住址</label>
+                                <div class="col-md-10">
+                                    <input type="text" name="addr" id="addr" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">班级</label>
+                                <div class="col-md-10">
+                                    <select class="form-control" name="cid" id="cid">
+                                        <option value="1">1301班</option>
+                                        <option value="2">1302班</option>
+                                        <option value="3">1305班</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" value="关闭" class=" btn btn-default"
+                                       data-dismiss="modal">
+                                <input type="button" onclick="save()" value="保存" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover table-striped">
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>住址</th>
+                <th>所在班级</th>
+                <th>操作</th>
+            </tr>
+            <tbody id="tb">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer text-right">
+        泽林教育2000-2019.
+    </div>
+</div>
+</div>
+</body>
+</html>
+
+<script>
+    function save() {
+        $("#studentMes").modal("hide");
+        var sid = $("#sid").val();
+        alert("sid==="+sid)
+        if(sid == "" || sid == null){
+            add();
+        }else {
+            update();
+        }
+    }
+    function showStudents() {
+        $.post(
+            "student?cmd=list",
+            function (data) {
+                var info = "";
+                $(data).each(function (i, v) {
+                    info += "<tr>";
+                    info += "<td>" + v.sid + "</td>";
+                    info += "<td>" + v.sname + "</td>";
+                    info += "<td>" + v.sex + "</td>";
+                    info += "<td>" + v.age + "</td>";
+                    info += "<td>" + v.addr + "</td>";
+                    info += "<td>" + v.cname + "</td>";
+                    info += "<td>";
+                    info += " <a href='javascript:void(0)' onclick='toUpdate(" + JSON.stringify(v) + ")' class='glyphicon glyphicon-pencil btn btn-success btn-sm'>修改</a> ";
+                    info += " <a href='javascript:void(0)' onclick='deleteStudent(" + v.sid + ")' class='glyphicon glyphicon-trash btn btn-danger btn-sm'>删除</a>";
+                    info += "</td>";
+                    info += "</tr>";
+                });
+                $("#tb").html(info);
+            }, "json"
+        )
+    }
+
+    function toUpdate(v) {
+        $("#studentMes").modal("show");
+        $("#sid").val(v.sid);
+        $("#sname").val(v.sname);
+        $("#age").val(v.age);
+        $("input[value="+v.sex+"]").attr('checked','true');
+        $("#addr").val(v.addr);
+        $("#cid").val(v.cid);
+    }
+
+    function toAdd() {
+        $("#studentMes").modal("show");
+        $("#sid").val("");
+        $("#form1")[0].reset();
+    }
+
+    function showClasses() {
+        $.post(
+            "classes?cmd=list",
+            function (data) {
+                var info = "";
+                $(data).each(function (i, v) {
+                    info += "<option value='" + v.cid + "'>" + v.cname + "</option>";
+                });
+                $("#cid").html(info);
+            }, "json"
+        );
+    }
+
+    $(function () {
+        showClasses();
+        showStudents();
+    });
+
+    function deleteStudent(v) {
+        $.post(
+            "student?cmd=delete&sid=" + v,
+            function (data) {
+                if (data.success) {
+                    showStudents();
+                } else {
+                    alert(data.message);
+                }
+            }, "json"
+        );
+    }
+
+    function add(v) {
+        $.post(
+            "student?cmd=add",
+            $("#form1").serialize(),
+            function (data) {
+                if (data.success) {
+                    showStudents();
+                } else {
+                    alert(data.message);
+                }
+            }, "json"
+        );
+    }
+
+
+    function update(v) {
+        $.post(
+            "student?cmd=update",
+            $("#form1").serialize(),
+            function (data) {
+                if (data.success) {
+                    showStudents();
+                } else {
+                    alert(data.message);
+                }
+            }, "json"
+        );
+    }
+
+</script>

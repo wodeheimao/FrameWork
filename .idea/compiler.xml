@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="12_25_SpringMVC_02" />
+        <module name="mybatisGenertor" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="12_25_SpringMVC_02" target="1.7" />
+      <module name="ear" target="1.5" />
+      <module name="ejbs" target="1.5" />
+      <module name="hu" target="1.5" />
+      <module name="huuu_main" target="1.8" />
+      <module name="huuu_test" target="1.8" />
+      <module name="huzz" target="1.5" />
+      <module name="logging" target="1.5" />
+      <module name="mybatisGenertor" target="1.5" />
+      <module name="primary-source" target="1.5" />
+      <module name="projects" target="1.5" />
+      <module name="servlet" target="1.5" />
+      <module name="servlets" target="1.5" />
+      <module name="student" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

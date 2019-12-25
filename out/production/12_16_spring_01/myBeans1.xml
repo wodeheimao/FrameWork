@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--对象的构造-->
+    <!--无参构造创建对象-->
+    <bean id="student1" class="com.zelin.pojo.Student" scope="prototype"/>
+
+    <!-- 使用静态工厂创建对象-->
+    <bean id="student2" class="com.zelin.pojo.StudentFactory" factory-method="getStudent"/>
+
+    <!--使用工厂类-->
+    <bean id="studentFactory" class="com.zelin.pojo.StudentFactory" />
+    <bean id="student3" factory-bean="studentFactory" factory-method="getStudent2"/>
+
+</beans>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生列表</title>
+    <style>
+        table {
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css"/>
+    <script src="bootstrap-3.3.7/js/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">学生信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form1" method="post">
+                    <input type="hidden" name="sid" id="sid">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">姓名</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="sname" name="sname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="sex" value="男">男
+                                </label>
+                                <label>
+                                    <input type="radio" name="sex" value="女">女
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="age" name="age">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">地址</label>
+                        <div class="col-sm-9">
+                            <input class="form-control" id="addr" name="addr">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">班级</label>
+                        <div class="col-sm-9">
+                            <select name="cid" id="cid" class="form-control">
+                                <option value="1">cname</option>
+                                <option value="2">bbb</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="saveStudent()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="page-header">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <div class="row">
+                        <div class="col-md-10"><h4>学生信息显示</h4></div>
+                        <div class="col-md-2">
+                            <button class="btn btn-info" onclick="toAdd()">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-hover table-bordered table-striped">
+                <tr>
+                    <td>学号</td>
+                    <td>姓名</td>
+                    <td>性别</td>
+                    <td>年龄</td>
+                    <td>地址</td>
+                    <td>班级</td>
+                    <td>操作</td>
+                </tr>
+                <tbody id="tb">
+
+                </tbody>
+            </table>
+            <div class="panel-body">
+
+            </div>
+            <div class="panel-footer text-right">
+                <p>@泽林教育 2000-2050</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        //展示学生信息
+        showStudent();
+        //展示所有班级
+        showClasses();
+    })
+
+    //展示学生信息
+    function showStudent() {
+        $.post(
+            "student?cmd=list",
+            function (data) {
+                var info = "";
+                $(data).each(function (i, v) {
+                    info += "<tr>";
+                    info += "<td>" + v.sid + "</td>";
+                    info += "<td>" + v.sname + "</td>";
+                    info += "<td>" + v.sex + "</td>";
+                    info += "<td>" + v.age + "</td>";
+                    info += "<td>" + v.addr + "</td>";
+                    info += "<td>" + v.cname + "</td>";
+                    info += "<td>" +
+                        "<a href='javascript:void(0)' onclick='toUpdate(" + JSON.stringify(v) + ")' class='btn btn-success btn-sm'>修改</a> &nbsp;" +
+                        "<a href='javascript:void(0)' onclick='deleteStudent(" + v.sid + ")' class='btn btn-danger btn-sm'>删除</a>" +
+                        "</td>";
+                    info += "</tr>";
+                });
+                $("#tb").html(info);
+            }, "json"
+        )
+    }
+
+    //展示所有班级
+    function showClasses() {
+        $.post(
+            "classes?cmd=list",
+            function (data) {
+                var info = "";
+                $(data).each(function (i, v) {
+                    info += " <option value=" + v.cid + ">" + v.cname + "</option>"
+                });
+                $("#cid").html(info);
+            }, "json"
+        )
+    }
+
+    //添加学生信息准备
+    function toAdd() {
+        $("#myModal").modal("show");
+        $("#sid").val('');
+        $("#form1")[0].reset();
+    }
+
+    //更新学生信息准备
+    function toUpdate(v) {
+        $("#myModal").modal("show");
+        $("#sid").val(v.sid);
+        $("#sname").val(v.sname);
+        $("input[name=sex]").each(function (i, sv) {
+            if (sv.value === v.sex) {
+                $(this).prop("checked", true);
+            }
+        });
+        $("#age").val(v.age);
+        $("#addr").val(v.addr);
+        $("#cid").val(v.cid);
+    }
+
+    //保存学生
+    function saveStudent() {
+        var sid = $("#sid").val();
+        if (sid == null || sid === "") {
+            addStudent();
+        } else {
+            updateStudent();
+        }
+    }
+
+    //添加学生信息
+    function addStudent() {
+        $.post(
+            "student?cmd=addStudent",
+            $("#form1").serialize(),
+            function (data) {
+                if (data.result) {
+                    showStudent();
+                } else {
+                    alert(data.message)
+                }
+            }, "json"
+        );
+        $("#myModal").modal("hide");
+    }
+
+    //修改学生信息
+    function updateStudent() {
+        $.post(
+            "student?cmd=updateStudent",
+            $("#form1").serialize(),
+            function (data) {
+                if (data.result) {
+                    showStudent();
+                } else {
+                    alert(data.message)
+                }
+            }, "json"
+        );
+        $("#myModal").modal("hide");
+    }
+
+    //删除学生信息
+    function deleteStudent(v) {
+        $.post(
+            "student?cmd=deleteStudent&sid=" + v,
+            function (data) {
+                if (data.result) {
+                    showStudent();
+                } else {
+                    alert(data.message)
+                }
+            }, "json"
+        )
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

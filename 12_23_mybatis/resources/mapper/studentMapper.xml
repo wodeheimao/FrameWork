@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zelin.mapper.StudentMapper">
+
+    <sql id="mysql1">
+        select * from student
+        <where>
+            <if test="addr !=null and addr!=''">
+                and addr like '%${addr}%'
+            </if>
+            <if test="sname !=null and sname!=''">
+                and sname like '%${sname}%'
+            </if>
+            <if test="sid > 0">
+                and sid = #{sid}
+            </if>
+        </where>
+    </sql>
+    <select id="findStudentsByKeywords" resultType="student" parameterType="studentVo">
+        <include refid="mysql1"/>
+    </select>
+
+    <sql id="mysql2">
+        select * from student
+        <where>
+            <if test="sids !=null and sids!=''">
+               and  sid in
+                <foreach collection="sids" item="sid" open="(" close=")" separator=",">
+                    #{sid}
+                </foreach>
+            </if>
+        </where>
+
+    </sql>
+    <select id="findStudentsBySids" resultType="student" parameterType="studentVo">
+        <include refid="mysql2"/>
+    </select>
+
+
+    <sql id="mysql3">
+        select * from student
+        <where>
+            <if test="addr !=null and addr!=''">
+                and addr like '%${addr}%'
+            </if>
+            <if test="sname !=null and sname!=''">
+                and sname like '%${sname}%'
+            </if>
+            <if test="sid > 0">
+                and sid = #{sid}
+            </if>
+            <if test="sids !=null and sids!=''">
+               and  sid in
+                <foreach collection="sids" item="sid" open="(" close=")" separator=",">
+                    #{sid}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <select id="findStudentsByKeywords2" resultType="student" parameterType="studentVo">
+        <include refid="mysql3"/>
+    </select>
+</mapper>

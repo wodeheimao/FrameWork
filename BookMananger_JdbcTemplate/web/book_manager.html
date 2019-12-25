@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理</title>
+    <style>
+        table{
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
+    <script src="bootstrap-3.3.7/js/jquery.min.js"></script>
+    <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="modal fade" id="myModal" role="dialog" >
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">图书信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form1" method="post">
+                    <input type="hidden" name="bno" id="bno">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">书名</label>
+                        <div class="col-sm-9">
+                            <input  class="form-control" id="bname" name="bname">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">作者</label>
+                        <div class="col-sm-9">
+                            <input  class="form-control" id="author" name="author">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">出版社</label>
+                        <div class="col-sm-9">
+                            <input  class="form-control" id="publisher" name="publisher">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">价格</label>
+                        <div class="col-sm-9">
+                            <input  class="form-control" id="yprice" name="yprice">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" onclick="saveBook()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="page-header">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-2">
+                        <h4>图书信息</h4>
+                    </div>
+                    <div class="col-md-8">
+                        <form class="form-inline" id="form2" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">书名</label>
+                                <div class="col-sm-9">
+                                    <input  class="form-control" name="bname">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">作者</label>
+                                <div class="col-sm-9">
+                                    <input  class="form-control" name="author">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-info" onclick="toAdd()">添加</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered table-hover table-striped">
+                <tr>
+                    <td>编号</td>
+                    <td>书名</td>
+                    <td>作者</td>
+                    <td>出版社</td>
+                    <td>价格</td>
+                    <td>操作</td>
+                </tr>
+                <tbody id="tb">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+<script>
+    $(function () {
+        showBooks();
+    });
+    function showBooks() {
+        $.post(
+            "book?cmd=list",
+            function (data) {
+                var info = "";
+                $(data).each(function (i,v) {
+                    info += " <tr>";
+                    info += " <td>"+v.bno+"</td>";
+                    info += "<td>"+v.bname+"</td>";
+                    info += " <td>"+v.author+"</td>";
+                    info += "<td>"+v.publisher+"</td>";
+                    info += "<td>"+v.yprice+"</td>";
+                    info += "<td>";
+                    info += "<a class='btn btn-danger btn-sm' onclick='deleteBook("+v.bno+")'> 删除</a> &nbsp; " +
+                        "<a class='btn btn-info btn-sm'  onclick='toUpdate("+JSON.stringify(v)+")'>修改</a>"
+                    info +="</td>";
+                    info += "</tr>";
+                })
+                $("#tb").html(info);
+            },"json"
+        );
+    }
+
+    function toAdd(){
+        $("#myModal").modal("show");
+        $("#bno").val('');
+        $("#form1")[0].reset();
+    }
+
+    function toUpdate(v){
+        $("#myModal").modal("show");
+        $("#bno").val(v.bno);
+        $("#bname").val(v.bname);
+        $("#author").val(v.author);
+        $("#publisher").val(v.publisher);
+        $("#yprice").val(v.yprice);
+    }
+    function  saveBook(){
+        var bno = $("#bno").val();
+        if(bno === "" || bno==null){
+            addBook();
+        }else{
+            updateBook();
+        }
+    }
+    //添加图书
+    function addBook() {
+        $.post(
+            "book?cmd=add",
+            $("#form1").serialize(),
+            function (data) {
+                if(data.success){
+                    showBooks()
+                }else{
+                    alert(data.message)
+                }
+            },"json"
+        );
+        $("#myModal").modal("hide");
+    }
+    //修改图书
+    function updateBook() {
+        $.post(
+            "book?cmd=add",
+            $("#form1").serialize(),
+            function (data) {
+                if(data.success){
+                    showBooks()
+                }else{
+                    alert(data.message)
+                }
+            },"json"
+        );
+        $("#myModal").modal("hide");
+    }
+
+    //删除图书
+    function deleteBook(bno) {
+        $.post(
+            "book?cmd=delete&bno="+bno,
+            function (data) {
+                if(data.success){
+                    showBooks()
+                }else{
+                    alert(data.message)
+                }
+            },"json"
+        );
+    }
+
+</script>

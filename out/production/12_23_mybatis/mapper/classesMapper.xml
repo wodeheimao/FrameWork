@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zelin.mapper.ClassesMapper">
+
+    <!--使用自定义ResultMap完成-->
+    <resultMap id="classesMap" type="classes">
+        <id property="cid" column="cid"/>
+        <result column="cname" property="cname"/>
+        <collection property="studentList"  javaType="list" ofType="student" column="cid">
+            <id column="sid" property="sid"/>
+            <result property="sname" column="sname"/>
+            <result property="age" column="age"/>
+            <result property="sex" column="sex"/>
+            <result property="addr" column="addr"/>
+            <result property="cname" column="cname"/>
+        </collection>
+    </resultMap>
+    <select id="findAllClasses" resultMap="classesMap">
+         select st.*,cname from classes c,student st where st.cid=c.cid
+    </select>
+
+
+    <!--使用关联查询完成-->
+    <resultMap id="classesMap2" type="classes">
+        <id property="cid" column="cid"/>
+        <result column="cname" property="cname"/>
+        <collection property="studentList"  javaType="list" ofType="student" column="cid" select="findStudents"/>
+    </resultMap>
+    <select id="findStudents" resultType="student">
+         select st.* from student st where st.cid=#{value}
+    </select>
+    <select id="findAllClasses2" resultMap="classesMap2">
+        select * from classes
+    </select>
+</mapper>

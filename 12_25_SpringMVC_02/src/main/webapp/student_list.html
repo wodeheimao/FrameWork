@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生信息</title>
+    <style>
+        table{
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/angularjs/pagination.css">
+    <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/angularjs/angular.min.js"></script>
+    <!--angularjs分页-->
+    <script src="plugins/angularjs/pagination.js"></script>
+    <script>
+        //配置angular.module
+        let app = angular.module("myApp",["pagination"]);
+        //配置controller
+        app.controller("studentController",function($scope,$http){
+            //掉用findAll
+            $scope.findAll = ()=>{
+                $http.get("student/list.do").success(response=>{
+                    $scope.students = response;
+                })
+            }
+            //分页
+            $scope.pagination={
+                currentPage : 1,	                    //代表当前页
+                itemsPerPage : 5,	                    //代表每页的记录数
+                totalItems : 100,	                    //代表总记录数
+                perPageOptions : [5,10,15,20,25,30],  //代表分页的选项列表
+                onChange:function(){
+                    $scope.listpage();
+                }
+            }
+            $scope.listpage = ()=>{
+                $http.get("student/pageList.do?page="+$scope.pagination.currentPage+"&pageSize="+$scope.pagination.itemsPerPage).success(response=>{
+                    $scope.students=response.rows;
+                    $scope.pagination.totalItems=response.total;
+                })
+            }
+
+        })
+    </script>
+</head>
+<body ng-app="myApp" ng-controller="studentController">
+
+<div class="container">
+    <div class="page-header">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <h3>学生信息</h3>
+                </div>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <td>学号</td>
+                        <td>姓名</td>
+                        <td>性别</td>
+                        <td>年龄</td>
+                        <td>地址</td>
+                        <td>班级</td>
+                        <td>操作</td>
+                    </tr>
+
+                    <tr ng-repeat="stu in students">
+                        <td>{{stu.sid}}</td>
+                        <td>{{stu.sname}}</td>
+                        <td>{{stu.sex}}</td>
+                        <td>{{stu.age}}</td>
+                        <td>{{stu.addr}}</td>
+                        <td>{{stu.cname}}</td>
+                        <td>
+                            <a class="btn btn-sm btn-danger">删除</a>
+                            <a class="btn btn-sm btn-info">修改</a>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td colspan="7">
+                            <tm-pagination conf="pagination"></tm-pagination>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
