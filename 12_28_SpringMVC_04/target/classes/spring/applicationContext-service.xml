@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--配置属性文件引入-->
+    <context:property-placeholder location="classpath*:db/db.properties"/>
+    <!--开启扫描-->
+    <context:component-scan base-package="com.zelin"/>
+
+    <!--配置数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${db.driver}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.user}"/>
+        <property name="password" value="${db.password}"/>
+    </bean>
+    <!--配置sqlSessionFactroyBean-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置别名包-->
+        <property name="typeAliasesPackage" value="com.zelin.pojo"/>
+        <!--配置sqlmapper映射文件-->
+        <property name="mapperLocations" value="classpath*:mapper/*.xml"/>
+        <property name="plugins">
+            <bean class="com.github.pagehelper.PageHelper">
+                <property name="properties">
+                    <value>
+                        dialect=mysql
+                    </value>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <!--配置mapperScannerConfigurer 扫描器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zelin.mapper"/>
+    </bean>
+
+</beans>

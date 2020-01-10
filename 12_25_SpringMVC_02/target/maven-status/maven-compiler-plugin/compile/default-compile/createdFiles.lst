@@ -1,0 +1,16 @@
+com\zelin\mapper\StudentMapper.class
+com\zelin\pojo\PageResult.class
+com\zelin\pojo\Student.class
+com\zelin\pojo\StudentExample$Criteria.class
+com\zelin\web\controller\StudentController.class
+com\zelin\mapper\ClassesMapper.class
+com\zelin\pojo\ClassesExample.class
+com\zelin\pojo\StudentExample$GeneratedCriteria.class
+com\zelin\pojo\ClassesExample$Criterion.class
+com\zelin\pojo\ClassesExample$GeneratedCriteria.class
+com\zelin\service\impl\StudentServiceImpl.class
+com\zelin\pojo\Classes.class
+com\zelin\pojo\StudentExample$Criterion.class
+com\zelin\service\StudentService.class
+com\zelin\pojo\StudentExample.class
+com\zelin\pojo\ClassesExample$Criteria.class

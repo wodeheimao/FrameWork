@@ -2,13 +2,8 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/12_25_SpringMVC_02" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/ear" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/ejbs" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/primary-source" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/projects" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/projects/logging" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/servlets" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/hu/servlets/servlet" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/12_26_SpringMVC_03" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/12_28_SpringMVC_04" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/12_30_SpringMVC_05" charset="UTF-8" />
   </component>
 </project>

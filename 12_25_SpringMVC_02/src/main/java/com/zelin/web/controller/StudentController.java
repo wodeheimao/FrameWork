@@ -1,13 +1,18 @@
 package com.zelin.web.controller;
+import	java.util.Queue;
 
 import com.zelin.pojo.PageResult;
 import com.zelin.pojo.Student;
 import com.zelin.service.StudentService;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RestController         //等于@Controller + @ResponseBody
@@ -15,6 +20,8 @@ import java.util.List;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+
 
     //查询所有学生
     @RequestMapping("list")

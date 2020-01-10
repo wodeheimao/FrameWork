@@ -5,11 +5,10 @@
       <module fileurl="file://$PROJECT_DIR$/12_17_spring_02/12_17_spring_02.iml" filepath="$PROJECT_DIR$/12_17_spring_02/12_17_spring_02.iml" />
       <module fileurl="file://$PROJECT_DIR$/12_19_SpringTx/12_19_SpringTx.iml" filepath="$PROJECT_DIR$/12_19_SpringTx/12_19_SpringTx.iml" />
       <module fileurl="file://$PROJECT_DIR$/12_20_mybatis01/12_20_mybatis01.iml" filepath="$PROJECT_DIR$/12_20_mybatis01/12_20_mybatis01.iml" />
-      <module fileurl="file://$PROJECT_DIR$/12_23_mybatis/12_23_mybatis.iml" filepath="$PROJECT_DIR$/12_23_mybatis/12_23_mybatis.iml" />
-      <module fileurl="file://$PROJECT_DIR$/12_24_SpringMVC_01/12_24_SpringMVC_01.iml" filepath="$PROJECT_DIR$/12_24_SpringMVC_01/12_24_SpringMVC_01.iml" />
-      <module fileurl="file://$PROJECT_DIR$/12_25_SpringMVC_02/12_25_SpringMVC_02.iml" filepath="$PROJECT_DIR$/12_25_SpringMVC_02/12_25_SpringMVC_02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/12_26_SpringMVC_03/12_26_SpringMVC_03.iml" filepath="$PROJECT_DIR$/12_26_SpringMVC_03/12_26_SpringMVC_03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/12_28_SpringMVC_04/12_28_SpringMVC_04.iml" filepath="$PROJECT_DIR$/12_28_SpringMVC_04/12_28_SpringMVC_04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/12_30_SpringMVC_05/12_30_SpringMVC_05.iml" filepath="$PROJECT_DIR$/12_30_SpringMVC_05/12_30_SpringMVC_05.iml" />
       <module fileurl="file://$PROJECT_DIR$/BookMananger_JdbcTemplate/BookMananger_JdbcTemplate.iml" filepath="$PROJECT_DIR$/BookMananger_JdbcTemplate/BookMananger_JdbcTemplate.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mybatisGenertor/mybatisGenertor.iml" filepath="$PROJECT_DIR$/mybatisGenertor/mybatisGenertor.iml" />
     </modules>
   </component>
 </project>

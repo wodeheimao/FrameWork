@@ -10,8 +10,6 @@
   <packaging>war</packaging>
 
   <name>12_25_SpringMVC_02 Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <!-- 集中定义依赖版本号 -->
   <properties>

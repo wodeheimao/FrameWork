@@ -1,0 +1,29 @@
+package com.zelin.pojo;
+
+import javax.persistence.Id;
+import java.io.Serializable;
+
+public class Classes implements Serializable {
+    @Id
+    private Integer cid;
+
+    private String cname;
+
+    private static final long serialVersionUID = 1L;
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
+    }
+
+    public String getCname() {
+        return cname;
+    }
+
+    public void setCname(String cname) {
+        this.cname = cname == null ? null : cname.trim();
+    }
+}

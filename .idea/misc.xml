@@ -13,6 +13,10 @@
     <file type="ejb" url="file://$PROJECT_DIR$/hu/ejbs" />
     <file type="javaeeApplication" url="file://$PROJECT_DIR$/hu/ear" />
     <file type="web" url="file://$PROJECT_DIR$/12_25_SpringMVC_02" />
+    <file type="web" url="file://$PROJECT_DIR$/12_26_SpringMVC_03" />
+    <file type="web" url="file://$PROJECT_DIR$/12_28_SpringMVC_04" />
+    <file type="web" url="file://$PROJECT_DIR$/12_30_SpringMVC_05" />
+    <file type="web" url="file://$PROJECT_DIR$/_12_30_SpringMVC_05" />
     <file type="web" url="file://$PROJECT_DIR$/hu" />
     <file type="web" url="file://$PROJECT_DIR$/student" />
   </component>
@@ -23,8 +27,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/hu/pom.xml" />
-        <option value="$PROJECT_DIR$/mybatisGenertor/pom.xml" />
-        <option value="$PROJECT_DIR$/12_25_SpringMVC_02/pom.xml" />
+        <option value="$PROJECT_DIR$/12_26_SpringMVC_03/pom.xml" />
+        <option value="$PROJECT_DIR$/12_28_SpringMVC_04/pom.xml" />
+        <option value="$PROJECT_DIR$/_12_30_SpringMVC_05/pom.xml" />
+        <option value="$PROJECT_DIR$/12_30_SpringMVC_05/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

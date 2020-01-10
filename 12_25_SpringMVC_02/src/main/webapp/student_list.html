@@ -32,9 +32,10 @@
                 itemsPerPage : 5,	                    //代表每页的记录数
                 totalItems : 100,	                    //代表总记录数
                 perPageOptions : [5,10,15,20,25,30],  //代表分页的选项列表
-                onChange:function(){
+                onChange:()=>{
                     $scope.listpage();
                 }
+
             }
             $scope.listpage = ()=>{
                 $http.get("student/pageList.do?page="+$scope.pagination.currentPage+"&pageSize="+$scope.pagination.itemsPerPage).success(response=>{

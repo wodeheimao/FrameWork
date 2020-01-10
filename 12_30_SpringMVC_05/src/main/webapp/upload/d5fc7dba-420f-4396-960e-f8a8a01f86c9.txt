@@ -1,0 +1,87 @@
+SpringIOC容器是一个Map结构,key-value
+（key: String    value: Object）
+ 
+spring IOC容器的bean的配置：
+（告知spring创建容器需要扫描的包<context:compoment-scan base-package="com." />）
+@Repository	用于持久层
+@Service	用于业务层
+@Controller	用于控制层(表现层)
+@Compoent	用于把当前对象存入Spring容器中
+
+@Scope		单例多例
+
+spring IOC容器的数据的注入：
+使用bean容器需要注入数据的
+@Autowired：自动按照类型注入，再按变量名称作为id查找bean
+		出现成员 方法
+@Qualifier： 属性（value = "bean的id"），配合Autiwired使用
+@Resources：属性（name = "bean id"）
+上面不能注入，基本数据类型和String，集合类型只能通过xml文件
+@value： 基本数据类型和String
+	属性：（value：用于指定的值，使用spring的spEL（${表达式}}））
+
+
+Spring注解
+@Configuration：	指定当前为配置类
+@ComponentScan：	用于注解Spring创建容器要扫描的的包
+@Bean:			用于把当前方法作为返回值作为bean存入spring的ioc容器中
+			属性：name=""
+@Import:		用于导入其他配置类
+@PropertySource:	用于properties文件的引入
+
+
+@Configuration
+@ComponentScan（basePackage="com.XXX"）
+@Import(JdbcConfig.class)
+@PropertySourec("classpath:db.properties")
+public class SpringConfiguration(){
+
+	@Bean
+	@Scope("prototype")
+	public QueryRunner createQueryRunner(@Qualifier("ds1") DataSource ds){
+		return new QueryRunner(ds);
+	}	
+
+}		
+spring与Junit集成测试（导入spring-test包）
+Junit集成了一个main方法，使用@Test
+使用注解：
+@RunWith（SpringJunit4ClassRunner.class）
+@ContextConfiguration()		location:指定xml文件的位置；classes:指定配置类所在位置
+			
+
+
+
+
+
+
+
+动态代理：
+	特点：字节码随用创建，随用加载
+	作用：不用修改源码的基础上增强
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
